@@ -1,0 +1,66 @@
+name: Deploy Production
+
+on:
+  # push:
+  #   branches: [ master ]
+  workflow_dispatch:
+
+
+env:
+  STAGE: production
+  APP_NAME: ldrq-web
+  AWS_REGION: ${{secrets.AWS_REGION}}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        id: aws-credentials
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # - name: Create S3 Bucket Change Set
+      #   id: s3-service
+      #   uses: aws-actions/aws-cloudformation-github-deploy@v1.0.3
+      #   with:
+      #     name: RQ-${{ env.STAGE }}-ldrq-web-s3-bucket
+      #     template: devops/service/ldrq-web/cloudformation/s3-service.yml
+      #     no-fail-on-empty-changeset: "1"
+      #     capabilities: CAPABILITY_NAMED_IAM
+      #     parameter-overrides: >-
+      #       Stage=${{ env.STAGE }},
+      #       RepositoryName=${{env.APP_NAME}}
+
+      # - name: Create Cloudfront Change Set
+      #   id: cloudfront-service
+      #   uses: aws-actions/aws-cloudformation-github-deploy@v1.0.3
+      #   with:
+      #     name: RQ-${{ env.STAGE }}-ldrq-web-cloudfront
+      #     template: devops/service/ldrq-web/cloudformation/cloudfront-service.yml
+      #     no-fail-on-empty-changeset: "1"
+      #     capabilities: CAPABILITY_NAMED_IAM
+      #     parameter-overrides: >-
+      #       Stage=${{ env.STAGE }},
+      #       RepositoryName=${{env.APP_NAME}}
+
+      - name: Build
+        run: |
+          npm install
+          npx vue-cli-service build --mode ${{ env.STAGE }}
+          aws s3 sync dist/ s3://rq-${{ env.STAGE }}-ldrq-web/
+      
+      - name: Invalidate
+        run: CLOUDFRONT_ID=`aws ssm get-parameter --region us-west-2 --with-decryption --name /SERVICE/${{ env.STAGE }}/ldrq-web/CLOUDFRONT_ID --output text --query Parameter.Value` ; aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths '/*'
