@@ -1,6 +1,6 @@
 name: testim-quick-goldenpath-tests
 
-on: [pull_request]
+on: [pull_request_target]
 
 jobs:
   run-testim-goldenpath:
