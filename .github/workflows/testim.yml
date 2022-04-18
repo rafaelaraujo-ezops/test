@@ -1,8 +1,7 @@
 name: testim-quick-goldenpath-tests
 
 on: 
-  pull_request_target:
-    types: [assigned, opened, synchronize, reopened,edited]
+  pull_request:
 
 
 jobs:
@@ -35,10 +34,10 @@ jobs:
         continue-on-error: true
 
       - name: Close PR
-        uses: superbrothers/close-pull-request@v3
+        uses: peter-evans/close-pull@v2
         if: steps.testIM.outcome != 'success'
         with:
-          comment: "The test return a error"
+          comment: The test returns a error
 
         
 
