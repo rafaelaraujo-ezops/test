@@ -1,6 +1,9 @@
 name: testim-quick-goldenpath-tests
 
-on: [pull_request]
+on: 
+  pull_request:
+    branches:    
+      - 'test2'
 
 jobs:
   run-testim-goldenpath:
@@ -31,12 +34,12 @@ jobs:
         run: npm i -g @testim/testim-cli && testim --label "${{ env.STAGE }}" --token "ZKUis2F50BZxHTyNvXaft8Uoslxc5I9Dm4WHKwh2AJbSduJVIU" --project "HTi7rU3h1uFzdCMumHzB" --grid "Testim-Grid"
         continue-on-error: true
 
-      - name: Check PR
-        uses: actions/stale@v4
+      - name: Close PR
+        uses: peter-evans/close-pull@v2
         if: steps.testIM.outcome != 'success'
         with:
-          close-pr-message: 'This PR was closed because it has an error on tests'
-          days-before-pr-close: 0
+          comment: The test returns an error
+
         
 
 
