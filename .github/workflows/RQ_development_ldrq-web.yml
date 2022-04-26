@@ -1,27 +1,34 @@
 name: Deploy Development test
-
-on:
-  push:
-    branches: [ feature/pipeline ]
-  
-  workflow_dispatch:
-
-
 env:
+  REPO_OWNER: rafaelaraujo-ezops
+  REPO_NAME: test
+  GITHUB_TOKEN: ${{ secrets.TOKEN }}
   STAGE: development
   APP_NAME: ldrq-web
   AWS_REGION: ${{secrets.AWS_REGION}} 
 
-defaults:
-  run:
-    shell: bash
-
-jobs:
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
+on:
+  repository_dispatch:
+    types: [run-dev]
     
+  push:
+    branches: [ feature/pipeline ]
+jobs:
+  
+  job:
+  
+    defaults:
+      run:
+        shell: bash
+    runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - name: Install packages
+        run: npm ci
+      - name: Run ${{ github.event.client_payload.command }}
+        run: npm run ${{ github.event.client_payload.command }} allinone
+
+
       - name: Git Checkout
         uses: actions/checkout@v3
 
