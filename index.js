@@ -22,21 +22,21 @@ async function run(command) {
     const isAllInOne = workflowType === "allinone";
 
     console.log(`Received ${command || "No"} command`);
-    switch(command) {
-        case "dev":
-            payload.event_type = `run-dev`;
-            payload.client_payload.command = "dev";
-            break;
-        case "pong":
-            payload.event_type = `run-done${isAllInOne ? '-allinone' : ''}`;
-            payload.client_payload.command = "done";
-            break;
-        case "done":
-            console.log('I GUESS WE ARE DONE!!! :-D');
-            return;
-        default:
-            throw new Error('Command not supported');
-    }
+    // switch(command) {
+    //     case "dev":
+    //         payload.event_type = `run-dev`;
+    //         payload.client_payload.command = "dev";
+    //         break;
+    //     case "pong":
+    //         payload.event_type = `run-done${isAllInOne ? '-allinone' : ''}`;
+    //         payload.client_payload.command = "done";
+    //         break;
+    //     case "done":
+    //         console.log('I GUESS WE ARE DONE!!! :-D');
+    //         return;
+    //     default:
+    //         throw new Error('Command not supported');
+    // }
 
     if(!owner || !repo || !token) {
         throw new Error('Owner and repo required');
