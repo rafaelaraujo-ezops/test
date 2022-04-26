@@ -9,7 +9,7 @@ env:
 
 on:
   repository_dispatch:
-    types: [run-dev]
+    types: [deploy dev]
     
   push:
     branches: [ feature/pipeline ]
