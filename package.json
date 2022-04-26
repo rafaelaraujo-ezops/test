@@ -1,0 +1,24 @@
+{
+    "name": "test-event-dispatcher-workflows",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "dev": "node index.js dev",
+      "pong": "node index.js pong",
+      "done": "node index.js done"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/rafaelaraujo-ezops/test.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/rafaelaraujo-ezops/test/issues"
+    },
+    "homepage": "https://github.com/rafaelaraujo-ezops/tests#readme",
+    "dependencies": {
+      "axios": "^0.20.0"
+    }
+  }
