@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          if [ -z ${{env.HASH}} ]; then
+          if [ ${{env.HASH}} == '' ]; then
               echo "HASH=${{ github.sha }}">>$GITHUB_ENV
           fi
                 
