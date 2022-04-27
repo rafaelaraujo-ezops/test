@@ -14,16 +14,30 @@ on:
   push:
     branches: [ feature/pipeline ]
 jobs:
-  
   job:
-  
+    env:
+      REPO_OWNER: rafaelaraujo-ezops
+      REPO_NAME: test
+      GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      STAGE: development
+      APP_NAME: ldrq-web
+      AWS_REGION: ${{secrets.AWS_REGION}} 
+      HASH: ${{ github.event.client_payload.hash }}  
+
     defaults:
       run:
         shell: bash
     runs-on: ubuntu-latest
     steps:
+      - run: |
+          if [ -z ${{env.HASH}} ]; then
+              echo "HASH=${{ github.sha }}">>$GITHUB_ENV
+          fi
+                
       - name: Git Checkout
         uses: actions/checkout@v3
+        with:
+          ref: ${{env.HASH}}
 
       - name: Git Checkout Infra
         uses: actions/checkout@v3
