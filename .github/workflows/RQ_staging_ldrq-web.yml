@@ -133,14 +133,15 @@ jobs:
       - name: Generate Changelog
         id: generate_changelog
         run: |
-          ls -a
-          echo "# Release Notes ${{ steps.date.outputs.date }}">wiki/changelog.md
+          echo "# Release Notes x ${{ steps.date.outputs.date }}">wiki/changelog.md
           echo "## Project ${{github.repository}}">>wiki/changelog.md
           echo "**commit:** [${{github.sha}}](${{github.server_url}}/${{github.repository}}/commit/${{github.sha}})">>wiki/changelog.md
           cat wiki/changelog.md
       
-      - run: ls -a
-      
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+              branch: master
+
       - uses: OrlovM/Wiki-Action@v1
         with:
          path: 'wiki'
