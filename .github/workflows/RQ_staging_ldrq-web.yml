@@ -138,12 +138,13 @@ jobs:
           echo "## Project ${{github.repository}}">>wiki/changelog.md
           echo "**commit:** [${{github.sha}}](${{github.server_url}}/${{github.repository}}/commit/${{github.sha}})">>wiki/changelog.md
           cat wiki/changelog.md
+      
       - run: ls -a
       
       - name: Sync Wiki
         uses: joeizzard/action-wiki-sync@master
         with:
-            username:  rafaelaraujo-ezops
+            username: "rafaelaraujo-ezops"
             access_token: ${{ secrets.TOKEN }}
             commit_username: ${{github.actor}}
             commit_email: 'example@users.noreply.github.com'
