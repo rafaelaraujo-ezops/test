@@ -20,6 +20,7 @@ jobs:
       # AWS_REGION: ${{ secrets.AWS_REGION }}
       # # SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       HASH: ${{ github.event.client_payload.hash }}
+      STAGING_HASH: ${{ github.event.client_payload.staging_hash }}
       GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
     steps:
@@ -39,7 +40,6 @@ jobs:
           if [ '${{env.USER}}' == '' ]; then
              echo "USER=${{ github.actor }}">>$GITHUB_ENV
           fi
-
       - name: Git Checkout Core Api
         uses: actions/checkout@v3
         id: checkout-app
@@ -136,6 +136,9 @@ jobs:
           echo "# Release Notes x ${{ steps.date.outputs.date }}">wiki/changelog.md
           echo "## Project ${{github.repository}}">>wiki/changelog.md
           echo "**commit:** [${{github.sha}}](${{github.server_url}}/${{github.repository}}/commit/${{github.sha}})">>wiki/changelog.md
+          echo "### Features"
+          git log ${{env.STAGING_HASH}}..${{env.HASH}} --pretty=format:"%s">>wiki/changelog.md
+
           cat wiki/changelog.md
       
       - uses: stefanzweifel/git-auto-commit-action@v4
@@ -148,7 +151,7 @@ jobs:
          token: ${{ secrets.TOKEN }}
 
 
-
+      # git log ${{env.STAGING_HASH}}..${{env.HASH}} --pretty=format:"%s" -i -E --grep="^(\[INTERNAL\]|\[FEATURE\]|\[FIX\]|\[DOC\])*\[FEATURE\]"
       # - name: Generate Changelog
       #   id: generate_changelog
       #   uses: nblagoev/pull-release-notes-action@v1.0.2
