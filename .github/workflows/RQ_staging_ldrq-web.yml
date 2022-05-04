@@ -137,19 +137,17 @@ jobs:
           echo "# Release Notes ${{ steps.date.outputs.date }}">wiki/changelog.md
           echo "## Project ${{github.repository}}">>wiki/changelog.md
           echo "**commit:** [${{github.sha}}](${{github.server_url}}/${{github.repository}}/commit/${{github.sha}})">>wiki/changelog.md
-          cat changelog.md
+          cat wiki/changelog.md
       
-      - run: cat $GITHUB_CONTEXT
-      
-      # - name: Sync Wiki
-      #   uses: joeizzard/action-wiki-sync@master
-      #   with:
-      #       username: ${{github.actor}}
-      #       access_token: ${{ secrets.TOKEN }}
-      #       wiki_folder: wiki
-      #       commit_username: ${{github.actor}}
-      #       commit_email: ${{github.actor}}
-      #       commit_message: 'action: wiki sync'
+      - name: Sync Wiki
+        uses: joeizzard/action-wiki-sync@master
+        with:
+            username: ${{github.actor}}
+            access_token: ${{ secrets.TOKEN }}
+            wiki_folder: wiki
+            commit_username: 'Example Name'
+            commit_email: 'example@users.noreply.github.com'
+            commit_message: 'action: wiki sync'
 
 
       # - name: Generate Changelog
