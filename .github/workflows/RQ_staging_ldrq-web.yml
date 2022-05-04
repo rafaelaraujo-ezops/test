@@ -142,8 +142,9 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
          commit_message: create changelog
+         branch: master
 
-         
+
       # - name: Generate Changelog
       #   id: generate_changelog
       #   uses: nblagoev/pull-release-notes-action@v1.0.2
