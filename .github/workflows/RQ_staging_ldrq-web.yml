@@ -145,7 +145,7 @@ jobs:
             username: ${{github.actor}}
             access_token: ${{ secrets.TOKEN }}
             wiki_folder: wiki
-            commit_username: 'Example Name'
+            commit_username: ${{github.actor}}
             commit_email: 'example@users.noreply.github.com'
             commit_message: 'action: wiki sync'
 
