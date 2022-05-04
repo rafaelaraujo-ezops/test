@@ -1,6 +1,7 @@
 name: RQ_staging_core_api
 on: 
   workflow_dispatch:
+  push:
   repository_dispatch:
     types: [staging-api]
 defaults:
