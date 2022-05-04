@@ -142,9 +142,8 @@ jobs:
       - name: Sync Wiki
         uses: joeizzard/action-wiki-sync@master
         with:
-            username: ${{github.actor}}
+            username:  rafaelaraujo-ezops
             access_token: ${{ secrets.TOKEN }}
-            wiki_folder: wiki
             commit_username: ${{github.actor}}
             commit_email: 'example@users.noreply.github.com'
             commit_message: 'action: wiki sync'
