@@ -29,7 +29,8 @@ jobs:
         shell: bash
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - name: Verify Hash
+        run: |
           if [ ${{env.HASH}} == '' ]; then
               echo "HASH=${{ github.sha }}">>$GITHUB_ENV
           fi

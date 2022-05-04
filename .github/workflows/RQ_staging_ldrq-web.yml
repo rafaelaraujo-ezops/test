@@ -1,66 +1,170 @@
-name: Deploy Staging
-
-on:
-  # push:
-  #   branches: [ feature/pipeline ]
+name: RQ_staging_core_api
+on: 
   workflow_dispatch:
-
-
-env:
-  STAGE: staging
-  APP_NAME: ldrq-web
-  AWS_REGION: ${{secrets.AWS_REGION}} 
-
+  repository_dispatch:
+    types: [staging-api]
 defaults:
   run:
-    shell: bash
+    shell: bash 
 
 jobs:
-  deploy:
-    name: Deploy
+ 
+ Build:
     runs-on: ubuntu-latest
-    
+    name: Build
+    env:
+      STAGE: staging
+      # APP_NAME: core-api
+      # CLUSTER_NAME: RQ-staging-eks
+      # AWS_REGION: ${{ secrets.AWS_REGION }}
+      # # SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      HASH: ${{ github.event.client_payload.hash }}
+      GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
     steps:
-      - name: Git Checkout
-        uses: actions/checkout@v3
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        id: aws-credentials
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-      # - name: Create S3 Bucket Change Set
-      #   id: s3-service
-      #   uses: aws-actions/aws-cloudformation-github-deploy@v1.0.3
-      #   with:
-      #     name: RQ-${{ env.STAGE }}-ldrq-web-s3-bucket
-      #     template: devops/service/ldrq-web/cloudformation/s3-service.yml
-      #     no-fail-on-empty-changeset: "1"
-      #     capabilities: CAPABILITY_NAMED_IAM
-      #     parameter-overrides: >-
-      #       Stage=${{ env.STAGE }},
-      #       RepositoryName=${{env.APP_NAME}}
-
-      # - name: Create Cloudfront Change Set
-      #   id: cloudfront-service
-      #   uses: aws-actions/aws-cloudformation-github-deploy@v1.0.3
-      #   with:
-      #     name: RQ-${{ env.STAGE }}-ldrq-web-cloudfront
-      #     template: devops/service/ldrq-web/cloudformation/cloudfront-service.yml
-      #     no-fail-on-empty-changeset: "1"
-      #     capabilities: CAPABILITY_NAMED_IAM
-      #     parameter-overrides: >-
-      #       Stage=${{ env.STAGE }},
-      #       RepositoryName=${{env.APP_NAME}}
-
-      - name: Build
-        run: |
-          npm install
-          npx vue-cli-service build --mode ${{ env.STAGE }}
-          aws s3 sync dist/ s3://rq-${{ env.STAGE }}-ldrq-web/
+      # - name: Send Slack Message - Start
+        # uses: act10ns/slack@v1
+        # with:
+        #   status: starting
+        #   message: Starting deploy to ${{ env.STAGE }}
+        # if: always()
       
-      - name: Invalidate
-        run: CLOUDFRONT_ID=`aws ssm get-parameter --region us-west-2 --with-decryption --name /SERVICE/${{ env.STAGE }}/ldrq-web/CLOUDFRONT_ID --output text --query Parameter.Value` ; aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths '/*'
+      - name: Verify Payload Variables
+        run: |
+          if [ '${{env.HASH}}' == '' ]; then
+              echo "HASH=${{ github.sha }}">>$GITHUB_ENV
+          fi
+
+          if [ '${{env.USER}}' == '' ]; then
+             echo "USER=${{ github.actor }}">>$GITHUB_ENV
+          fi
+
+      - name: Git Checkout Core Api
+        uses: actions/checkout@v3
+        id: checkout-app
+        with:
+          path: .
+          ref: ${{env.HASH}}
+
+      - name: Git Checkout Infra
+        uses: actions/checkout@v3
+        id: checkout-infra
+        with:
+          repository: arqu-co/infra
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          path: infra
+          ref: master
+
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   id: aws-credentials
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+      #     aws-region: ${{ secrets.AWS_REGION }}
+
+      # - name: Configure Tags and Java Variables
+      #   run: |
+      #     echo "ACCOUNT_ID=${{steps.aws-credentials.outputs.aws-account-id}}">>$GITHUB_ENV
+      #     echo "BASE_IMAGE_JDK=${{steps.aws-credentials.outputs.aws-account-id}}.dkr.ecr.$AWS_REGION.amazonaws.com/rq_staging_base_core-api-jdk">>$GITHUB_ENV
+      #     echo "BASE_IMAGE_JRE=${{steps.aws-credentials.outputs.aws-account-id}}.dkr.ecr.$AWS_REGION.amazonaws.com/rq_staging_base_core-api-jre">>$GITHUB_ENV
+      #     COMMIT_HASH=$(echo ${{env.HASH}} | cut -c 1-7)
+      #     IMAGE_TAG=${COMMIT_HASH:=latest}
+      #     echo "IMAGE_TAG=$IMAGE_TAG">>$GITHUB_ENV
+      #     LAST_PROD_SHA=$(aws ssm get-parameter --name /ECS-CLUSTER/production/API/GIT_HASH | jq -r ".Parameter.Value")
+      #     echo "LAST_PROD_SHA=$LAST_PROD_SHA">>$GITHUB_ENV
+
+      
+      # - name: Set Github Sha to SSM
+      #   id: set-sha-to-ssm
+      #   run: aws ssm put-parameter --name /ECS-CLUSTER/staging/API/GIT_HASH --value ${{env.HASH}} --type String --data-type text --overwrite
+    
+      # - name: Rename .git folder
+      #   run: mv .git .gitfolder    
+      
+      # - name: Run Test CodeBuild
+      #   id: tests
+      #   uses: neovasili/aws-codebuild@v1.0.0
+      #   with:
+      #     aws_region: ${{ secrets.AWS_REGION }}
+      #     codebuild_job_name: RQ_${{ env.STAGE }}_core-api_test_cb
+      #     codebuild_log_group: /aws/codebuild/RQ_${{ env.STAGE }}_core-api_test_cb
+      #     s3_path: arqu-devops/rq-${{ env.STAGE }}-core-api
+      #     buildspec: infra/devops/service/core-api/codebuild/buildspec-test-${{ env.STAGE }}.yml
+
+      # - name: Rename .git folder
+      #   run: mv .gitfolder .git    
+      
+           
+      # - name: Login to Amazon ECR
+      #   id: login-ecr
+      #   uses: aws-actions/amazon-ecr-login@v1
+
+      # - name: Build, tag, and push image to Amazon ECR
+      #   id: build-image
+      #   env:
+      #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      #   run: |
+      #     docker build --build-arg BASE_IMAGE_JDK=$BASE_IMAGE_JDK --build-arg BASE_IMAGE_JRE=$BASE_IMAGE_JRE -t $ECR_REGISTRY/rq_${{env.STAGE}}_$APP_NAME:latest -f infra/devops/service/core-api/docker/Dockerfile.core .
+      #     docker tag $ECR_REGISTRY/rq_${{env.STAGE}}_$APP_NAME:latest $ECR_REGISTRY/rq_${{ env.STAGE }}_$APP_NAME:$IMAGE_TAG
+      #     echo Build completed on `date`
+      #     echo Pushing the Docker images...
+      #     docker push $ECR_REGISTRY/rq_${{env.STAGE}}_$APP_NAME:latest
+      #     docker push $ECR_REGISTRY/rq_${{env.STAGE}}_$APP_NAME:$IMAGE_TAG
+      
+      # - name: Helm deploy
+      #   uses: koslib/helm-eks-action@master
+      #   id: helm-deploy
+      #   env:
+      #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+
+      #   with:
+      #     plugins: "https://github.com/jkroepke/helm-secrets" # optional
+      #     command: | 
+      #       helm upgrade --install $APP_NAME-${{env.STAGE}} --set imageuri=$ECR_REGISTRY/rq_${{env.STAGE}}_$APP_NAME --set tag=$IMAGE_TAG  infra/devops/service/$APP_NAME/k8s -f infra/devops/service/$APP_NAME/k8s/values-${{env.STAGE}}.yaml
+      #       helm upgrade --install datadog-operator-${{env.STAGE}}-alarms  infra/devops/service/datadog/monitoring/k8s -f  infra/devops/service/datadog/monitoring/k8s/values-${{env.STAGE}}.yaml
+      
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      
+      - name: Generate Changelog
+        id: generate_changelog
+        run: |
+          echo "# Release Notes ${{ steps.date.outputs.date }}">>changelog.md
+          echo "#Project ${{github.repository}}>>changelog.md
+          echo "*commit:* [${{github.sha}}](${{github.event.url}}) ">>changelog.md
+
+          cat changelog.md
+      
+      # - name: Generate Changelog
+      #   id: generate_changelog
+      #   uses: nblagoev/pull-release-notes-action@v1.0.2
+      #   with:
+      #     base-ref: ${{ env.LAST_PROD_SHA }}
+      #     head-ref: ${{ env.HASH }}
+
+      
+      
+      # - name: Create Release
+      #   id: create-release
+      #   uses: ncipollo/release-action@v1
+      #   with:
+      #       token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      #       tag: staging-release
+      #       draft: true
+      #       body: ${{steps.generate_changelog.outputs.result}}
+      #       name: Release-${{ env.IMAGE_TAG }}
+            
+      # - name: Show release url 
+      #   run: |  
+      #     echo ${{steps.create-release.outputs.html_url}}
+      #     echo "RELEASE_LINK=${{steps.create-release.outputs.html_url}}">>$GITHUB_ENV
+      
+      # - name: Send Slack Message - Finish
+        # uses: act10ns/slack@v1
+        # with:
+        #   status: ${{ job.status }}
+        #   steps: ${{ toJson(steps) }}
+        # if: always()
