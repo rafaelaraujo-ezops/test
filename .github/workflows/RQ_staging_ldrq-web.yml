@@ -138,7 +138,7 @@ jobs:
           echo "## Project ${{github.repository}}">>wiki/changelog.md
           echo "**commit:** [${{github.sha}}](${{github.server_url}}/${{github.repository}}/commit/${{github.sha}})">>wiki/changelog.md
           echo "### Features" >> wiki/changelog.md
-          git log 01f12221df52270306b0b8fff0693181760a46ba..HEAD --pretty=format:"**Author: %an**%n%n **commit message:** %s %n %N %n%n" -i -E --grep= "^(feat)*feat" >> wiki/changelog.md
+          git log 01f12221df52270306b0b8fff0693181760a46ba..HEAD --pretty=format:"**Author: %an**%n%n **commit message:** %s %n %N %n%n" -i -E --grep= "^([feat])*[feat]" >> wiki/changelog.md
           cat wiki/changelog.md
       
       - uses: stefanzweifel/git-auto-commit-action@v4
