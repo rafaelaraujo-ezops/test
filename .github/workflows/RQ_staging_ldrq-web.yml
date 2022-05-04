@@ -46,14 +46,14 @@ jobs:
           path: .
           ref: ${{env.HASH}}
 
-      - name: Git Checkout Infra
-        uses: actions/checkout@v3
-        id: checkout-infra
-        with:
-          repository: arqu-co/infra
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          path: infra
-          ref: master
+      # - name: Git Checkout Infra
+      #   uses: actions/checkout@v3
+      #   id: checkout-infra
+      #   with:
+      #     repository: arqu-co/infra
+      #     token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      #     path: infra
+      #     ref: master
 
       # - name: Configure AWS credentials
       #   uses: aws-actions/configure-aws-credentials@v1
