@@ -1,4 +1,4 @@
 # Release Notes x 2022-05-04
 ## Project rafaelaraujo-ezops/test
-**commit:** [55463f31a9522cb0f4a94b3d64b95ea07fbdfd5e](https://github.com/rafaelaraujo-ezops/test/commit/55463f31a9522cb0f4a94b3d64b95ea07fbdfd5e)
+**commit:** [fcbde9a473d9c10f10b107eb52cf4fccabe29210](https://github.com/rafaelaraujo-ezops/test/commit/fcbde9a473d9c10f10b107eb52cf4fccabe29210)
 ### Features
