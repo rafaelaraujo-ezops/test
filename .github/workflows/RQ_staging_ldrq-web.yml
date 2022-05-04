@@ -45,6 +45,7 @@ jobs:
         id: checkout-app
         with:
           path: .
+          fetch-depth: 0
           # ref: ${{env.HASH}}
 
       # - name: Git Checkout Infra
