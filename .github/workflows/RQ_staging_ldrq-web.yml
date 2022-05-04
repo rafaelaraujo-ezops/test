@@ -45,7 +45,7 @@ jobs:
         id: checkout-app
         with:
           path: .
-          ref: ${{env.HASH}}
+          # ref: ${{env.HASH}}
 
       # - name: Git Checkout Infra
       #   uses: actions/checkout@v3
