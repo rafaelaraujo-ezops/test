@@ -20,7 +20,7 @@ jobs:
       # AWS_REGION: ${{ secrets.AWS_REGION }}
       # # SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       HASH: ${{ github.event.client_payload.hash }}
-      STAGING_HASH: ${{ github.event.client_payload.staging_hash }}
+      STAGING_HASH: ${{ github.event.client_payload.staging }}
       GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
     steps:
@@ -144,6 +144,8 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
               branch: master
+              skip_dirty_check: true    
+
 
       - uses: OrlovM/Wiki-Action@v1
         with:
