@@ -138,7 +138,7 @@ jobs:
           echo "## Project ${{github.repository}}">>wiki/changelog.md
           echo "**commit:** [${{github.sha}}](${{github.server_url}}/${{github.repository}}/commit/${{github.sha}})">>wiki/changelog.md
           echo "### Features"
-          git log 01f12221df52270306b0b8fff0693181760a46ba..d4b2a11f159e574935a36b91f1809b6de37de0e9 --pretty=format:"**[%an]** : %s " > wiki/changelog.md
+          git log 01f12221df52270306b0b8fff0693181760a46ba..d4b2a11f159e574935a36b91f1809b6de37de0e9 --pretty=format:"**[%an]** : %s %n" > wiki/changelog.md
           cat wiki/changelog.md
       
       - uses: stefanzweifel/git-auto-commit-action@v4
