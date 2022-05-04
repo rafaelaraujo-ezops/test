@@ -137,7 +137,7 @@ jobs:
           echo "## Project ${{github.repository}}">>wiki/changelog.md
           echo "**commit:** [${{github.sha}}](${{github.server_url}}/${{github.repository}}/commit/${{github.sha}})">>wiki/changelog.md
           echo "### Features"
-          git log 5f7af16d7a98a347a9e3e341a0e30fcd282a9f1d..01f12221df52270306b0b8fff0693181760a46ba --pretty=format:"[%an] : %s ">>wiki/changelog.md
+          git log 01f12221df52270306b0b8fff0693181760a46ba..5f7af16d7a98a347a9e3e341a0e30fcd282a9f1d --pretty=format:"[%an] : %s ">>wiki/changelog.md
 
           cat wiki/changelog.md
       
