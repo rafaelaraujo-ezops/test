@@ -134,8 +134,8 @@ jobs:
         id: generate_changelog
         run: |
           echo "# Release Notes ${{ steps.date.outputs.date }}">>changelog.md
-          echo "# Project ${{github.repository}}">>changelog.md
-          echo "*commit* [${{github.sha}}] (${{github.server_url}}/${{github.repository}}/commit/${{github.sha}})">>changelog.md
+          echo "## Project ${{github.repository}}">>changelog.md
+          echo "**commit:** [${{github.sha}}](${{github.server_url}}/${{github.repository}}/commit/${{github.sha}})">>changelog.md
 
           cat changelog.md
       
