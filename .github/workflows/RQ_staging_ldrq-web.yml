@@ -139,7 +139,7 @@ jobs:
           echo "**commit:** [${{github.sha}}](${{github.server_url}}/${{github.repository}}/commit/${{github.sha}})">>wiki/changelog.md
           cat changelog.md
       
-      - run: echo "$GITHUB_CONTEXT"
+      - run: cat $GITHUB_CONTEXT
       
       # - name: Sync Wiki
       #   uses: joeizzard/action-wiki-sync@master
