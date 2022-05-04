@@ -144,7 +144,7 @@ jobs:
       - uses: OrlovM/Wiki-Action@v1
         with:
          path: 'wiki'
-         token: ${{ secrets.GITHUB_TOKEN }}
+         token: ${{ secrets.TOKEN }}
 
 
 
