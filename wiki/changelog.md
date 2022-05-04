@@ -1,30 +1,45 @@
 # Release Notes x 2022-05-04
 ## Project rafaelaraujo-ezops/test
-**commit:** [a65fefaa896b192c1688b1eda138375c30556d99](https://github.com/rafaelaraujo-ezops/test/commit/a65fefaa896b192c1688b1eda138375c30556d99)
-**[rafael]** : test changelog 
+**commit:** [5a913647d9de4c370e4ec807d891c9122f3c4d6d](https://github.com/rafaelaraujo-ezops/test/commit/5a913647d9de4c370e4ec807d891c9122f3c4d6d)
+### Features
+**Author: rafael** : 
+ **commit message:**test changelog 
 
-**[rafael]** : Merge branch 'master' of https://github.com/rafaelaraujo-ezops/test 
+**Author: rafael** : 
+ **commit message:**Merge branch 'master' of https://github.com/rafaelaraujo-ezops/test 
 
-**[rafael]** : test changelog 
+**Author: rafael** : 
+ **commit message:**test changelog 
 
-**[rafaelaraujo-ezops]** : Apply automatic changes 
+**Author: rafaelaraujo-ezops** : 
+ **commit message:**Apply automatic changes 
 
-**[rafael]** : Merge branch 'master' of https://github.com/rafaelaraujo-ezops/test 
+**Author: rafael** : 
+ **commit message:**Merge branch 'master' of https://github.com/rafaelaraujo-ezops/test 
 
-**[rafael]** : test changelog 
+**Author: rafael** : 
+ **commit message:**test changelog 
 
-**[rafaelaraujo-ezops]** : Apply automatic changes 
+**Author: rafaelaraujo-ezops** : 
+ **commit message:**Apply automatic changes 
 
-**[rafael]** : Merge branch 'master' of https://github.com/rafaelaraujo-ezops/test 
+**Author: rafael** : 
+ **commit message:**Merge branch 'master' of https://github.com/rafaelaraujo-ezops/test 
 
-**[rafael]** : test changelog 
+**Author: rafael** : 
+ **commit message:**test changelog 
 
-**[rafaelaraujo-ezops]** : Apply automatic changes 
+**Author: rafaelaraujo-ezops** : 
+ **commit message:**Apply automatic changes 
 
-**[rafael]** : Merge branch 'master' of https://github.com/rafaelaraujo-ezops/test 
+**Author: rafael** : 
+ **commit message:**Merge branch 'master' of https://github.com/rafaelaraujo-ezops/test 
 
-**[rafael]** : test changelog 
+**Author: rafael** : 
+ **commit message:**test changelog 
 
-**[rafaelaraujo-ezops]** : Apply automatic changes 
+**Author: rafaelaraujo-ezops** : 
+ **commit message:**Apply automatic changes 
 
-**[rafael]** : test changelog 
+**Author: rafael** : 
+ **commit message:**test changelog 
