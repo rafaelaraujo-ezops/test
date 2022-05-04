@@ -1,16 +1,4 @@
 # Release Notes x 2022-05-04
 ## Project rafaelaraujo-ezops/test
-**commit:** [fd2f65dc532914beb2a306a730a7e815f5db8077](https://github.com/rafaelaraujo-ezops/test/commit/fd2f65dc532914beb2a306a730a7e815f5db8077)
+**commit:** [18bd1058ad446c12d8b1f0edfae169df0b10ff88](https://github.com/rafaelaraujo-ezops/test/commit/18bd1058ad446c12d8b1f0edfae169df0b10ff88)
 ### Features
- **commit message:** feat: testando features 
- **commit message:** feat: testando features 
- **commit message:** feat: testando features 
- **commit message:** feat: testando features 
- **commit message:** feat: testando features 
- **commit message:** feat: testando features 
- **commit message:** feat: testando features 
- **commit message:** feat: testando features 
- **commit message:** feat: testando features 
- **commit message:** feat: testando features 
- **commit message:** feat: testando features 
- **commit message:** feat: testando features 
