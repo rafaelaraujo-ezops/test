@@ -141,14 +141,11 @@ jobs:
       
       - run: ls -a
       
-      - name: Sync Wiki
-        uses: joeizzard/action-wiki-sync@master
+      - uses: OrlovM/Wiki-Action@v1
         with:
-            username: "rafaelaraujo-ezops"
-            access_token: ${{ secrets.TOKEN }}
-            commit_username: ${{github.actor}}
-            commit_email: 'example@users.noreply.github.com'
-            commit_message: 'action: wiki sync'
+         path: 'wiki'
+         token: ${{ secrets.GITHUB_TOKEN }}
+
 
 
       # - name: Generate Changelog
