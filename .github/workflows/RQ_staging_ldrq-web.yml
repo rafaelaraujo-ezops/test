@@ -133,6 +133,7 @@ jobs:
       - name: Generate Changelog
         id: generate_changelog
         run: |
+          mkdir wiki
           echo "# Release Notes ${{ steps.date.outputs.date }}">wiki/changelog.md
           echo "## Project ${{github.repository}}">>wiki/changelog.md
           echo "**commit:** [${{github.sha}}](${{github.server_url}}/${{github.repository}}/commit/${{github.sha}})">>wiki/changelog.md
