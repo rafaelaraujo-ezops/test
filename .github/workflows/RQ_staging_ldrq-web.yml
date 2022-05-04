@@ -135,7 +135,7 @@ jobs:
         run: |
           echo "# Release Notes ${{ steps.date.outputs.date }}">>changelog.md
           echo "#Project ${{github.repository}}>>changelog.md
-          echo "*commit:* [${{github.sha}}](${{github.repository}}) ">>changelog.md
+          echo "*commit:* [${{github.sha}}](${{github.commit}}) ">>changelog.md
 
           cat changelog.md
       
