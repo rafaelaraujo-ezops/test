@@ -1,7 +1,18 @@
-# Release Notes Thu May  5 20:36:11 UTC 2022
+# Release Notes Thu May  5 20:40:35 UTC 2022
 ## Project: core-api
-**commit:** [75c30b9ed49497f342954f08a403048b6773b91f](https://github.com/rafaelaraujo-ezops/test/commit/75c30b9ed49497f342954f08a403048b6773b91f)
+**commit:** [66e65ff7fe584c244c2817263bdfcd457c41327d](https://github.com/rafaelaraujo-ezops/test/commit/66e65ff7fe584c244c2817263bdfcd457c41327d)
 ### Features
 ### Fixes
+**Author: rafael** 
+
+ **commit message:** fix commit with note  
+
+   
+
+**Author: rafaelaraujo-ezops** 
+
+ **commit message:** Merge pull request #7 from rafaelaraujo-ezops/test  
+
+  fix: commit sha 
 ### Styles
 ### OPS
