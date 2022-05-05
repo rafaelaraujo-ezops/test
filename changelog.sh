@@ -7,6 +7,7 @@ echo "# Release Notes $now">wiki/changelog.md
 echo "## Project: core-api">>wiki/changelog.md
 echo "**commit:** [$STAGING_HASH](https://github.com/rafaelaraujo-ezops/test/commit/$STAGING_HASH)">>wiki/changelog.md
 echo "### Features">>wiki/changelog.md
+<<<<<<< HEAD
 git log $STAGING_HASH..$HASH -i -E --grep="^(feat)" --merges  --pretty=format:"**Author: %an** %n%n **commit message:** %s  %n%n %N >%b %n">>wiki/changelog.md 
 echo "### Fixes">>wiki/changelog.md
 git log $STAGING_HASH..$HASH -i -E --grep="^(fix)"  --merges --pretty=format:"**Author: %an** %n%n **commit message:** %s  %n%n %N >%b %n">>wiki/changelog.md
@@ -14,6 +15,15 @@ echo "### Styles">>wiki/changelog.md
 git log $STAGING_HASH..$HASH -i -E --grep="^(style)" --merges  --pretty=format:"**Author: %an** %n%n **commit message:** %s  %n%n %N >%b %n">>wiki/changelog.md
 echo "### OPS">>wiki/changelog.md
 git log $STAGING_HASH..$HASH -i -E --grep="^(ops)"  --merges --pretty=format:"**Author: %an** %n%n **commit message:** %s  %n%n %N >%b %n">>wiki/changelog.md
+=======
+git log $STAGING_HASH..$HASH -i -E --grep="^(feat)" --merges  --pretty=format:"**Author: %an** %n%n **commit message:** %s  %n%n % %bN %n">>wiki/changelog.md 
+echo "### Fixes">>wiki/changelog.md
+git log $STAGING_HASH..$HASH -i -E --grep="^(fix)"  --merges --pretty=format:"**Author: %an** %n%n **commit message:** %s  %n%n %N %b %n">>wiki/changelog.md
+echo "### Styles">>wiki/changelog.md
+git log $STAGING_HASH..$HASH -i -E --grep="^(style)" --merges  --pretty=format:"**Author: %an** %n%n **commit message:** %s  %n%n % %bN %n">>wiki/changelog.md
+echo "### OPS">>wiki/changelog.md
+git log $STAGING_HASH..$HASH -i -E --grep="^(ops)"  --merges --pretty=format:"**Author: %an** %n%n **commit message:** %s  %n%n %N %b %n">>wiki/changelog.md
+>>>>>>> origin/master
 cat wiki/changelog.md
 
 
