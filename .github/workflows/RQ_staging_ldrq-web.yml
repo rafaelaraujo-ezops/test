@@ -1,7 +1,7 @@
 name: RQ_staging_core_api
 on: 
   workflow_dispatch:
-  # push:
+   push:
   repository_dispatch:
     types: [staging-api]
 defaults:
@@ -127,15 +127,15 @@ jobs:
       #       helm upgrade --install $APP_NAME-${{env.STAGE}} --set imageuri=$ECR_REGISTRY/rq_${{env.STAGE}}_$APP_NAME --set tag=$IMAGE_TAG  infra/devops/service/$APP_NAME/k8s -f infra/devops/service/$APP_NAME/k8s/values-${{env.STAGE}}.yaml
       #       helm upgrade --install datadog-operator-${{env.STAGE}}-alarms  infra/devops/service/datadog/monitoring/k8s -f  infra/devops/service/datadog/monitoring/k8s/values-${{env.STAGE}}.yaml
       
-      - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      # - name: Get current date
+      #   id: date
+      #   run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
       
       - name: Generate Changelog
         id: generate_changelog
         run: |
           chmod +x changelog.sh
-          ./changelog.sh
+          ./changelog.sh 
       
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:

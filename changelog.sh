@@ -1,7 +1,10 @@
 #!/bin/sh
+now=`date`
+
 # STAGING_HASH=$1
 # HASH=$2
-echo "# Release Notes x ${{ steps.date.outputs.date }}">wiki/changelog.md
+
+echo "# Release Notes $now">wiki/changelog.md
 echo "## Project ${{github.repository}}">>wiki/changelog.md
 echo "**commit:** [${{github.sha}}](${{github.server_url}}/${{github.repository}}/commit/${{github.sha}})">>wiki/changelog.md
 echo "### Features" >> wiki/changelog.md
