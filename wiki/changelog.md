@@ -1,6 +1,6 @@
-# Release Notes Thu May  5 16:21:01 UTC 2022
+# Release Notes Thu May  5 18:51:42 UTC 2022
 ## Project: core-api
-**commit:** [5057d0c6dfeceb28ccc050fde656b8bc4fa63b6e](https://github.com/rafaelaraujo-ezops/test/commit/5057d0c6dfeceb28ccc050fde656b8bc4fa63b6e)
+**commit:** [aa60b08663ffc2c2361141f9d13da548dd7e38b5](https://github.com/rafaelaraujo-ezops/test/commit/aa60b08663ffc2c2361141f9d13da548dd7e38b5)
 ### Features
 ### Fixes
 ### Styles
