@@ -143,6 +143,7 @@ jobs:
               file_pattern: wiki/*.md 
               push_options: '--force'
               skip_dirty_check: true    
+              skip_checkout: true
 
 
       - uses: OrlovM/Wiki-Action@v1
