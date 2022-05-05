@@ -140,6 +140,8 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
               branch: master
+              file_pattern: wiki/*.md 
+              push_options: '--force'
               skip_dirty_check: true    
 
 
