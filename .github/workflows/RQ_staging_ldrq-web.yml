@@ -135,7 +135,7 @@ jobs:
         id: generate_changelog
         run: |
           chmod +x changelog.sh
-          ./changelog.sh 
+          ./changelog.sh $STAGING_HASH $HASH
       
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
