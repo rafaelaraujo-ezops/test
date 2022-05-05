@@ -2,6 +2,8 @@ name: RQ_staging_core_api
 on: 
   workflow_dispatch:
   push:
+    branches:
+      - "master"
   repository_dispatch:
     types: [staging-api]
 defaults:
