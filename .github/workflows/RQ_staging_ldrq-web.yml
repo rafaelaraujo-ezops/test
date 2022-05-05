@@ -134,12 +134,8 @@ jobs:
       - name: Generate Changelog
         id: generate_changelog
         run: |
-          echo "# Release Notes x ${{ steps.date.outputs.date }}">wiki/changelog.md
-          echo "## Project ${{github.repository}}">>wiki/changelog.md
-          echo "**commit:** [${{github.sha}}](${{github.server_url}}/${{github.repository}}/commit/${{github.sha}})">>wiki/changelog.md
-          echo "### Features" >> wiki/changelog.md
-          git log 01f12221df52270306b0b8fff0693181760a46ba..HEAD -i -E --grep="^(feat)" --pretty=format:"**Author: %an** %n **commit message:** %s *at %ah* %n %N %n" >> wiki/changelog.md 
-          cat wiki/changelog.md
+          chmod +x changelog.sh
+          changelog.sh
       
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
