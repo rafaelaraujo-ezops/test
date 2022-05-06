@@ -1,10 +1,10 @@
 #!/bin/bash
 now=`date`
-# STAGING_HASH=$1
-# HASH=$2
+STAGING_HASH=$1
+HASH=$2
 
-STAGING_HASH="66e65ff7fe584c244c2817263bdfcd457c41327d"
-HASH="HEAD"
+# STAGING_HASH="66e65ff7fe584c244c2817263bdfcd457c41327d"
+# HASH="HEAD"
 
 CONVENTION=("feat" "fix" "perf" "refactor" "style" "test" "build" "ops" "docs" "chore" "merge" "revert")
 
