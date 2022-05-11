@@ -1,243 +1,248 @@
-# Release Notes Fri May  6 15:11:59 -03 2022
+# Release Notes 05-11-2022
 ## Project: core-api
-**commit:** [66e65ff7fe584c244c2817263bdfcd457c41327d](https://github.com/rafaelaraujo-ezops/test/commit/66e65ff7fe584c244c2817263bdfcd457c41327d)
 ### Features
-**Author: rafaelaraujo-ezops** 
+**Author:**[rafaelaraujo-ezops](91761360+rafaelaraujo-ezops@users.noreply.github.com) 
 
- **commit message:** Feat (#11) *hash:75c30b9* 
-
- 
-
-  > "* testando
-
-* Teste AGAIN
-
-* testa aí de novo" 
-
-**Author: rafael** 
-
- **commit message:** feat test commit with note *hash:5415f96* 
+ **commit message:** Feat (#11)  
 
  
 
- That's a feat commit but only test
- > "" 
+ **Notes:**  
 
-**Author: rafael** 
+**Author:**[rafael](rafael.araujo@ezops.com.br) 
 
- **commit message:** feat: command *hash:6b51cbc* 
+ **commit message:** feat test commit with note  
 
  
 
-  > "" 
+ **Notes:** That's a feat commit but only test
+ 
+
+**Author:**[rafael](rafael.araujo@ezops.com.br) 
+
+ **commit message:** feat: command  
+
+ 
+
+ **Notes:**  
 ### Fix
 **Author: rafael** 
 
- **commit message:** fix commit with note *hash:54e9e64* 
+ **commit message:** fix commit with note  
 
  
 
- That's a fix again commit but only test
- > "" 
+ **Notes:** That's a fix again commit but only test
+ 
 
 **Author: rafael** 
 
- **commit message:** fix test commit with note *hash:8424cd0* 
+ **commit message:** fix test commit with note  
 
  
 
-  > "" 
+ **Notes:**  
 
 **Author: rafaelaraujo-ezops** 
 
- **commit message:** Merge pull request #7 from rafaelaraujo-ezops/test *hash:aa60b08* 
+ **commit message:** Merge pull request #7 from rafaelaraujo-ezops/test  
 
  
 
-  > "fix: commit sha" 
+ **Notes:**  
 
 **Author: rafael** 
 
- **commit message:** fix: commit sha *hash:918e925* 
+ **commit message:** fix: commit sha  
 
  
 
- That's a fix commit but only test
- > "" 
+ **Notes:** That's a fix commit but only test
+ 
 
 **Author: rafael** 
 
- **commit message:** fix: commit *hash:5057d0c* 
+ **commit message:** fix: commit  
 
  
 
-  > "" 
+ **Notes:**  
 
 **Author: rafael** 
 
- **commit message:** fix: commit *hash:f1fcba1* 
+ **commit message:** fix: commit  
 
  
 
-  > "" 
+ **Notes:**  
 ### Style
 **Author: rafael** 
 
- **commit message:** style: update *hash:9bce37d* 
+ **commit message:** style: update  
 
  
 
-  > "" 
+ **Notes:**  
 
 **Author: rafaelaraujo-ezops** 
 
- **commit message:** Merge pull request #12 from rafaelaraujo-ezops/test *hash:2c9a461* 
+ **commit message:** Merge pull request #12 from rafaelaraujo-ezops/test  
 
  
 
-  > "style: Update styles" 
+ **Notes:**  
 
 **Author: rafael** 
 
- **commit message:** style: update *hash:4d75391* 
+ **commit message:** style: update  
 
  
 
-  > "" 
+ **Notes:**  
 
 **Author: rafael** 
 
- **commit message:** style: set bloquotes *hash:44aa579* 
+ **commit message:** style: set bloquotes  
 
  
 
-  > "" 
+ **Notes:**  
 
 **Author: rafael** 
 
- **commit message:** Style *hash:69953fd* 
+ **commit message:** Style  
 
  
 
-  > "" 
+ **Notes:**  
 
 **Author: rafaelaraujo-ezops** 
 
- **commit message:** Style (#10) *hash:20d1381* 
+ **commit message:** Style (#10)  
 
  
 
-  > "* testando
-
-* Teste AGAIN
-
-* testa aí de novo" 
+ **Notes:**  
 ### Test
 **Author: rafael** 
 
- **commit message:** testa aí de novo *hash:3130f8e* 
+ **commit message:** test testando script  
 
  
 
-  > "" 
+ **Notes:**  
 
 **Author: rafael** 
 
- **commit message:** testa aí de novo *hash:775263d* 
+ **commit message:** test testando script  
 
  
 
-  > "" 
+ **Notes:**  
+
+**Author: rafael** 
+
+ **commit message:** testa aí de novo  
+
+ 
+
+ **Notes:**  
+
+**Author: rafael** 
+
+ **commit message:** testa aí de novo  
+
+ 
+
+ **Notes:**  
 
 **Author: rafaelaraujo-ezops** 
 
- **commit message:** Test (#9) *hash:0e76c08* 
+ **commit message:** Test (#9)  
 
  
 
-  > "* testando
-
-* Teste AGAIN" 
+ **Notes:**  
 
 **Author: rafael** 
 
- **commit message:** testa aí *hash:2003785* 
+ **commit message:** testa aí  
 
  
 
- Testar faz bem
- > "" 
+ **Notes:** Testar faz bem
+ 
 
 **Author: rafael** 
 
- **commit message:** Teste AGAIN *hash:e08bd77* 
+ **commit message:** Teste AGAIN  
 
  
 
- outro teste
- > "" 
+ **Notes:** outro teste
+ 
 
 **Author: rafael** 
 
- **commit message:** testando *hash:96d91ed* 
+ **commit message:** testando  
 
  
 
- Teste Note 1
- > "" 
+ **Notes:** Teste Note 1
+ 
 
 **Author: rafaelaraujo-ezops** 
 
- **commit message:** Merge pull request #8 from rafaelaraujo-ezops/test *hash:71281cc* 
+ **commit message:** Merge pull request #8 from rafaelaraujo-ezops/test  
 
  
 
-  > "Test" 
+ **Notes:**  
 
 **Author: rafael** 
 
- **commit message:** test changelog *hash:72aca25* 
+ **commit message:** test changelog  
 
  
 
-  > "" 
+ **Notes:**  
 ### Merges
 **Author: rafael** 
 
- **commit message:** Merge branch 'master' of https://github.com/rafaelaraujo-ezops/test *hash:d6f1d94* 
+ **commit message:** Merge branch 'master' of https://github.com/rafaelaraujo-ezops/test  
 
  
 
-  > "" 
+ **Notes:**  
 
 **Author: rafaelaraujo-ezops** 
 
- **commit message:** Merge pull request #12 from rafaelaraujo-ezops/test *hash:2c9a461* 
+ **commit message:** Merge pull request #12 from rafaelaraujo-ezops/test  
 
  
 
-  > "style: Update styles" 
+ **Notes:**  
 
 **Author: rafaelaraujo-ezops** 
 
- **commit message:** Merge pull request #8 from rafaelaraujo-ezops/test *hash:71281cc* 
+ **commit message:** Merge pull request #8 from rafaelaraujo-ezops/test  
 
  
 
-  > "Test" 
+ **Notes:**  
 
 **Author: rafaelaraujo-ezops** 
 
- **commit message:** Merge pull request #7 from rafaelaraujo-ezops/test *hash:aa60b08* 
+ **commit message:** Merge pull request #7 from rafaelaraujo-ezops/test  
 
  
 
-  > "fix: commit sha" 
+ **Notes:**  
 
 **Author: rafael** 
 
- **commit message:** Merge branch 'master' of https://github.com/rafaelaraujo-ezops/test *hash:a25c4ba* 
+ **commit message:** Merge branch 'master' of https://github.com/rafaelaraujo-ezops/test  
 
  
 
-  > "" 
+ **Notes:**  

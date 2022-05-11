@@ -1,0 +1,1062 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Metadata:
+  License: Apache-2.0
+Parameters:
+  env:
+    Description: The Environment
+    Type: String
+    Default: development
+    AllowedValues:
+      - development
+      - staging
+      - prod
+Resources:
+  Organization:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-organization
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: status
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx_global_status
+          KeySchema:
+            - AttributeName: status
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  Account:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-account
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: status
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx_global_status
+          KeySchema:
+            - AttributeName: status
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  Activity:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-activity
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: activityType
+          AttributeType: S
+        - AttributeName: dealId
+          AttributeType: S
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: dateCreated
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx-activity-type
+          KeySchema:
+            - AttributeName: activityType
+              KeyType: HASH
+            - AttributeName: dateCreated
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-deal-id
+          KeySchema:
+            - AttributeName: dealId
+              KeyType: HASH
+            - AttributeName: dateCreated
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-user-id
+          KeySchema:
+            - AttributeName: userId
+              KeyType: HASH
+            - AttributeName: dateCreated
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+
+  ChangePasswordToken:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-change_password_token
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: token
+          AttributeType: S
+        - AttributeName: userId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: token
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx_user_id
+          KeySchema:
+            - AttributeName: userId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  Clearing:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-clearing
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: dealId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx_global_clearing_dealid
+          KeySchema:
+            - AttributeName: dealId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  Client:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-client
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
+  Contact:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-contact
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: createdByUserId
+          AttributeType: S
+        - AttributeName: status
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx-created-by-user-id
+          KeySchema:
+            - AttributeName: createdByUserId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-status
+          KeySchema:
+            - AttributeName: status
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  Deal:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-deal
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: status
+          AttributeType: S
+        - AttributeName: labelId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx-status
+          KeySchema:
+            - AttributeName: status
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-label-id
+          KeySchema:
+            - AttributeName: labelId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  DealConstraint:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-deal_constraint
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: dealId
+          AttributeType: S
+        - AttributeName: lookupKey
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx-deal-id
+          KeySchema:
+            - AttributeName: dealId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-lookup-key-id
+          KeySchema:
+            - AttributeName: lookupKey
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  DealMessage:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-deal_message
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: messageId
+          AttributeType: S
+        - AttributeName: threadId
+          AttributeType: S
+        - AttributeName: dealId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: messageId
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx-thread-id
+          KeySchema:
+            - AttributeName: threadId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-deal-id
+          KeySchema:
+            - AttributeName: dealId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  DealMessageConstraint:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-deal_message_constraint
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: dealId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx-deal-id
+          KeySchema:
+            - AttributeName: dealId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  DealProgramStatus:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-deal_program_status
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
+  Document:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-document
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: dealId
+          AttributeType: S
+        - AttributeName: ownerId
+          AttributeType: S
+        - AttributeName: status
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx_global_dealId
+          KeySchema:
+            - AttributeName: dealId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx_global_ownerId
+          KeySchema:
+            - AttributeName: ownerId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx_global_doc_statuses
+          KeySchema:
+            - AttributeName: status
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  DocumentShared:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-document_shared
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: docId
+          AttributeType: S
+        - AttributeName: userId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: docId
+          KeyType: HASH
+        - AttributeName: userId
+          KeyType: RANGE
+
+  Email:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-email
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: dealId
+          AttributeType: S
+        - AttributeName: userId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx_global_email_dealid
+          KeySchema:
+            - AttributeName: dealId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx_global_email_userid
+          KeySchema:
+            - AttributeName: userId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  Exposure:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-exposure
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: programId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx-program-id
+          KeySchema:
+            - AttributeName: programId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  Group:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-group
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: accountId
+          AttributeType: S
+        - AttributeName: name
+          AttributeType: S
+        - AttributeName: status
+          AttributeType: S
+        - AttributeName: type
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx-account-id
+          KeySchema:
+            - AttributeName: accountId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-group-name
+          KeySchema:
+            - AttributeName: name
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-status
+          KeySchema:
+            - AttributeName: status
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-type
+          KeySchema:
+            - AttributeName: type
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  Indication:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-indication
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: indicationId
+          AttributeType: S
+        - AttributeName: createdByUserType
+          AttributeType: S
+      KeySchema:
+        - AttributeName: indicationId
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx_global_indication_createdByUserType
+          KeySchema:
+            - AttributeName: createdByUserType
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  IndicationLayerPair:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-indication_layer_pair
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: dealId
+          AttributeType: S
+        - AttributeName: programId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx-deal-id
+          KeySchema:
+            - AttributeName: dealId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-program-id
+          KeySchema:
+            - AttributeName: programId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  IndicationLayerPairConstraint2:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-indication_layer_pair_constraint
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
+  IndicationLineItemPair:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-indication_line_item_pair
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: dealId
+          AttributeType: S
+        - AttributeName: programId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx-deal-id
+          KeySchema:
+            - AttributeName: dealId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-program-id
+          KeySchema:
+            - AttributeName: programId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  IndicationLayerPairConstraint:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-indication_line_item_pair_constraint
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
+  IndicationMarket:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-indication_market
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: indicationMarketId
+          AttributeType: S
+        - AttributeName: createdByUserType
+          AttributeType: S
+        - AttributeName: indicationId
+          AttributeType: S
+        - AttributeName: programId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: indicationMarketId
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx_global_indication_market_createdByUserType
+          KeySchema:
+            - AttributeName: createdByUserType
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx_global_indication_request_id
+          KeySchema:
+            - AttributeName: indicationId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx_global_program_id
+          KeySchema:
+            - AttributeName: programId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL              
+
+  IndicationMarketVersion:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-indication_market_version
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: indicationVersionId
+          AttributeType: S
+        - AttributeName: createdByUserType
+          AttributeType: S
+        - AttributeName: marketId
+          AttributeType: S
+        - AttributeName: version
+          AttributeType: N
+      KeySchema:
+        - AttributeName: indicationVersionId
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx_global_indication_market_version_createdByUserType
+          KeySchema:
+            - AttributeName: createdByUserType
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx_global_indication_market_version_market
+          KeySchema:
+            - AttributeName: marketId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx_global_indication_market_version_version_value
+          KeySchema:
+            - AttributeName: version
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  LineItem:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-line_item
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: accountId
+          AttributeType: S
+        - AttributeName: type
+          AttributeType: S
+        - AttributeName: name
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx_global_lineitem_accountId
+          KeySchema:
+            - AttributeName: accountId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx_global_lineitem_type
+          KeySchema:
+            - AttributeName: type
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx_global_lineitem_name
+          KeySchema:
+            - AttributeName: name
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  Message:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-message
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: threadId
+          AttributeType: S
+        - AttributeName: createdAtMs
+          AttributeType: N
+      KeySchema:
+        - AttributeName: threadId
+          KeyType: HASH
+        - AttributeName: createdAtMs
+          KeyType: RANGE
+
+  MessageThread:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-message_thread
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+
+  NewsItem:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-news_item
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: createdAtMs
+          AttributeType: N
+        - AttributeName: sourceName
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+        - AttributeName: createdAtMs
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: idx-newsItem-createdAtMs
+          KeySchema:
+            - AttributeName: createdAtMs
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-source-Name
+          KeySchema:
+            - AttributeName: sourceName
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  Privilege:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-privilege
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: name
+          AttributeType: S
+        - AttributeName: dateCreated
+          AttributeType: N
+        - AttributeName: userId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: name
+          KeyType: HASH
+        - AttributeName: dateCreated
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: idx_user_id
+          KeySchema:
+            - AttributeName: userId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  Program:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-program
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: indicationId
+          AttributeType: S
+        - AttributeName: dealId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx_global_program_indication_id
+          KeySchema:
+            - AttributeName: indicationId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx_global_deal_id
+          KeySchema:
+            - AttributeName: dealId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  ProgramTextractJob:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-program_textract_job
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: jobId
+          AttributeType: S
+        - AttributeName: programId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx-job-id
+          KeySchema:
+            - AttributeName: jobId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-program-id
+          KeySchema:
+            - AttributeName: programId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  SOVHeader:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-sov_header
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: label
+          AttributeType: S
+        - AttributeName: businessUnit
+          AttributeType: S
+        - AttributeName: name
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx-label
+          KeySchema:
+            - AttributeName: label
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-businessUnit
+          KeySchema:
+            - AttributeName: businessUnit
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-name
+          KeySchema:
+            - AttributeName: name
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  StatementOfValueEntry:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-statement_of_value_entry
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: dealId
+          AttributeType: S
+        - AttributeName: name
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx-dealId
+          KeySchema:
+            - AttributeName: dealId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-name
+          KeySchema:
+            - AttributeName: name
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  StatementOfValue:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-statement_of_value
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: dealId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx-dealId
+          KeySchema:
+            - AttributeName: dealId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  Shedlock:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-shedlock
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: _id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: _id
+          KeyType: HASH
+
+  Tag:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-tag
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
+  TowerGroupCollection:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-tower_group_collection
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: program_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: program_id
+          KeyType: HASH
+
+  UnformattedSOV:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-unformatted_sov
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: dealId
+          AttributeType: S
+        - AttributeName: documentId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: idx-deal-id
+          KeySchema:
+            - AttributeName: dealId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-document-id
+          KeySchema:
+            - AttributeName: documentId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  UniqueUser:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-unique_user
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: email
+          AttributeType: S
+      KeySchema:
+        - AttributeName: email
+          KeyType: HASH
+
+  User:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-user
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: accountId
+          AttributeType: S
+        - AttributeName: email
+          AttributeType: S
+        - AttributeName: organizationId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        # idx-account-id is deprecated and will be removed in the future
+        - IndexName: idx-account-id
+          KeySchema:
+            - AttributeName: accountId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx_global_emailAddress
+          KeySchema:
+            - AttributeName: email
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: idx-organization-id
+          KeySchema:
+            - AttributeName: organizationId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
+  TemplateResponse:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub core-${env}-template_response
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
