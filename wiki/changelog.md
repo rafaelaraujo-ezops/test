@@ -15,8 +15,7 @@
 
  
 
- **Notes:** That's a feat commit but only test
- 
+ **Notes:**  
 
 **Author:**[rafael](rafael.araujo@ezops.com.br) 
 
@@ -32,8 +31,7 @@
 
  
 
- **Notes:** That's a fix again commit but only test
- 
+ **Notes:**  
 
 **Author: rafael** 
 
@@ -57,8 +55,7 @@
 
  
 
- **Notes:** That's a fix commit but only test
- 
+ **Notes:**  
 
 **Author: rafael** 
 
@@ -170,8 +167,7 @@
 
  
 
- **Notes:** Testar faz bem
- 
+ **Notes:**  
 
 **Author: rafael** 
 
@@ -179,8 +175,7 @@
 
  
 
- **Notes:** outro teste
- 
+ **Notes:**  
 
 **Author: rafael** 
 
@@ -188,8 +183,7 @@
 
  
 
- **Notes:** Teste Note 1
- 
+ **Notes:**  
 
 **Author: rafaelaraujo-ezops** 
 
